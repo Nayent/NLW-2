@@ -1,1 +1,1 @@
-# NLW-2
+Este projeto tem como intuito realizar os devidos projetos na Next Level Week #2
