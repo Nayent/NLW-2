@@ -32,8 +32,10 @@ html, body {
 }
 
 body {
-
     background-color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 body, input, button, textarea {
@@ -45,47 +47,14 @@ body, input, button, textarea {
     color: var(--color-text-base);
 }
 
-#linha1 {
-    height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-
+#container {
+    width: 90vw;
+    max-width: 700px;
 }
 
-#titulo {
-
-    margin: 50px;
-}
-
-#imagem {
-
-    margin: 50px;
-}
-
-#linha2 {
-    height: 30vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-
-}
-
-#linha2 p {
-color: var(--color-text-in-primary)
-} 
-
-#titulo h1 {
-    color: var(--color-title-in-primary);
-    font-size: 15rem;
-    text-align: center;
-    /*font-family: ;*/
-}
-
-#titulo p {
-color: var(--color-text-in-primary);
-font-size: 3rem;
+@media(min-width: 700px) {
+    :root {
+        font-size: 62.5%;
+    }
 }
 
