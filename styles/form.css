@@ -1,6 +1,6 @@
 .select-block label,
 .imput-block label,
-.textarea-block label {
+.textarea label {
     font-size: 1.4rem;
     color: var(--color-text-complement);
 }
@@ -19,16 +19,15 @@
     font: 1.6rem Archivo;
 }
 
-.input-block,
-.textarea-block {
-    position: relative;
-}
-
 .textarea-block textarea {
     padding: 1.2rem 1.6rem;
     height: 16rem;
-
     resize: vertical;
+}
+
+.input-block,
+.textarea-block {
+    position: relative;
 }
 
 .input-block:focus-within::after,
