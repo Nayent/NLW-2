@@ -1,5 +1,6 @@
 //procurar o botão
-document.querySelector("#add-time").addEventListener('click', cloneField)
+document.querySelector("#add-time")
+    .addEventListener('click', cloneField)
     //quando clicar no botão
 
 
@@ -9,9 +10,8 @@ function cloneField() {
 
     const fields = newFieldContainer.querySelectorAll('input')
     fields.forEach(function(field) {
-            field.value = ""
-        }
-    )
+        field.value = ""
+    })
 
 
     document.querySelector("#schedule-items").appendChild(newFieldContainer)

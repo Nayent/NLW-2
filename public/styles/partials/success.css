@@ -1,0 +1,40 @@
+#success-page {
+    background-color: var(--color-primary);
+}
+
+.img-fundo {
+    height: 90vh;
+    position: fixed;
+}
+
+#success-page div {
+    height: 60vh;
+    width: 80vw;
+    position: absolute;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+#success-page div h1 {
+    color: var(--color-title-in-primary);
+    font: 700 4.2rem Archivo;
+    font-weight: bold;
+    font-style: normal;
+    line-height: 8vh;
+}
+
+#success-page div p {
+    color: var(--color-text-in-primary);
+    font: 700 2rem Poppins;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 4vh;
+    text-align: center;
+}
+
+#success-page div img {
+    width: 20vw;
+    height: 20vh;
+}

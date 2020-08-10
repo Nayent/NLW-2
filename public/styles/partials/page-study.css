@@ -115,17 +115,21 @@
     font: 700 1.4rem Archivo;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     text-decoration: none;
     transition: background 0.2s;
     margin-left: 1.6rem;
+}
+
+.teacher-item footer .button img{
+    margin-right: 1.6rem;
 }
 
 .teacher-item footer .button:hover {
     background: var(--color-secondary-dark);
 }
 
-#page-study main .noResults {
+#page-study main .no-results {
     max-width: 30rem;
     margin: 12rem auto;
     text-align: center;
@@ -179,12 +183,12 @@
         display: initial;
         margin-left: 16px;
     }
-    .teacher-item footer button {
+    .teacher-item footer .button {
         width: 245px;
-        font-size: 16px;
+        font-size: 1;
         justify-content: center;
     }
-    .teacher-item footer button img {
+    .teacher-itemf footer .button img {
         margin-right: 16px;
     }
 }

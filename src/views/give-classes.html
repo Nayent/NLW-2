@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="pt_br">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8257E5">
     <title>Proffy | Sua plataforma de estudos online</title>
-
-<link rel="stylesheet" href="/styles/page-give-class.css">
-<link rel="stylesheet" href="/styles/header.css">
-<link rel="stylesheet" href="/styles/form.css">
-<link rel="stylesheet" href="/styles/main.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
-
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/partials/header.css">
+    <link rel="stylesheet" href="styles/partials/forms.css">
+    <link rel="stylesheet" href="styles/partials/page-give-classes.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap " rel="stylesheet ">
+    <script src="/scripts/addField.js" defer></script>
 </head>
+
 <body id="page-give-classes">
 
     <div id="container">
@@ -32,7 +34,7 @@
         </header>
 
         <main>
-            <form action="/save-class" id="create-class" method="POST">
+            <form id="create-class" action="/save-classes" method="POST">
                 <fieldset>
                     <legend>Seus dados</legend>
 
@@ -46,7 +48,7 @@
                     </div>
                     <div class="input-block">
                         <label for="whatsapp">Whatsapp <small>(somente números)</small></label>
-                        <input name="whatsapp" id="whatsapp" type="nunber" required>
+                        <input name="whatsapp" id="whatsapp" type="number" required>
 
                     </div>
                     <div class="textarea-block">
@@ -63,7 +65,7 @@
                         <select name="subject" id="subject" required>
                             <option value="">Selecione uma opção</option>
                             {%for subject in subjects%}
-                                <option value="{{loop.index}}">{{subject}}</option>
+                            <option value="{{loop.index}}">{{subject}}</option>
                             {%endfor%}
                         </select>
                     </div>
@@ -83,13 +85,11 @@
                     <div class="schedule-item">
                         <div class="select-block">
                             <label for="weekday">Dia da semana</label>
-                            <select name="weekday" required>
+                            <select name="weekday[]" required>
                             <option value="">Selecione uma opção</option>
-
                             {%for weekday in weekdays%}
-                                <option value="{{loop.index}}" {{"selected" if filters.weekday == loop.index}}>{{weekday}}</option>
+                            <option value="{{loop.index0}}">{{weekday}}</option>
                             {%endfor%}
-
                         </select>
                         </div>
 
@@ -108,12 +108,15 @@
                 <p>
                     <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os dados
                 </p>
-                <button type="submit" form="create-class">Salvar cadastro</button>
+                <button type="submit" form="create-class" location.href="/success">Salvar cadastro</button>
             </footer>
+
         </main>
 
     </div>
 
-    <script src="scripts/addField.js"></script>
 </body>
+
+
+
 </html>

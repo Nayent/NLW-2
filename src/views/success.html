@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro concluído!</title>
+    <script>
+        setTimeout(function() {
+            search = location.href.split("?")
+            location.href = "/study?" + search[1]
+        }, 5000);
+    </script>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/partials/success.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+
+
+</head>
+
+<body id="success-page">
+
+    <img src="/images/success-background.svg" class="img-fundo">
+
+    <div>
+        <img src="/images/icons/success-check-icon.svg" class="check-icon">
+        <h1>Cadastro salvo!</h1>
+        <p>Tudo certo, seu cadastro está na nossa lista de professores. <br> Agora é só ficar de olho no seu WhatsApp.</p>
+    </div>
+
+</body>
+
+</html>
