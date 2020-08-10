@@ -33,7 +33,7 @@
 
                             {%for subject in subjects%}
                                 <option value="{{loop.index}}" {{"selected" if filters.subject == loop.index}}>{{subject}}</option>
-                            {%endfor%}
+                            {% endfor %}
 
                         </select>
                     </div>
@@ -42,9 +42,13 @@
                             <select name="weekday" id="weekday">
                                 <option value="" disabled="" hidden="">Selecione uma opção</option>
                                 
-                                {%for weekday in weekdays%}
-                                    <option value="{{loop.index}}" {{"selected" if filters.weekday == loop.index}}>{{weekday}}</option>
-                                {%endfor%}
+                                {% if proffys == "" %}
+                                    <p class="noResults">Nenhum professor encontrado com a sua pesquisa</p>
+                                {% else %}
+                                    {%for weekday in weekdays%}
+                                        <option value="{{loop.index}}" {{"selected" if filters.weekday == loop.index}}>{{weekday}}</option>
+                                    {% endfor %}
+                                {% endif %}
 
                             </select>
                         </div>

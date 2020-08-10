@@ -1,37 +1,9 @@
-const proffys = [
-    {name: "Diego Fernandes",
-    avatar: "https://avatars2.githubusercontent.com/u/2254731?s=460&amp;u=0ba16a79456c2f250e7579cb388fa18c5c2d7d65&amp;v=4",
-    whatsapp: "9182-1096", 
-    bio: "Entusiasta das melhores tecnologias de química avançada.<br><br>Apaixonado por explodir coisas em laboratório e por mudar a vida das pessoas através de experiências. Mais de 200.000 pessoas já passaram por uma das minhas explosões.", 
-    subject: "Quimica", 
-    cost: "20,00", 
-    weekday: [0], 
-    time_from: [720], 
-    time_to: [1220]}
-]
-
-const subjects = [
-    "Biologia",
-    "Artes",
-    "Ciências",
-    "Educação física",
-    "Física",
-    "Geografia",
-    "História",
-    "Matemática",
-    "Português",
-    "Química",
-]
-
-const weekdays = [
-    "Domingo",
-    "Segunda-feira",
-    "Terça-feira",
-    "Quarta-feira",
-    "Quinta-feira",
-    "Sexta-feira",
-    "Sábado",
-]
+const {
+    subjects,
+    weekdays,
+    getSubject,
+    convertHoursToMinutes
+} = require('./utils/format')
 
 const express = require("express")
 const server = express()
@@ -41,31 +13,90 @@ nunjucks.configure('src/views', {
     noCache: true,
 })
 
-function getSubject(subject){
-    return subjects[subject - 1]
-}
-
-server.use(express.static("public"))
+server.use(express.static("public")).use(express.urlencoded({extended: true}))
 
 .get("/", (req, res) => {
     return res.render("index.html")
 })
-.get("/study", (req, res) => {
+.get("/study", async (req, res) => {
+
     const filters = req.query
-    return res.render("study.html", {proffys, filters, subjects, weekdays})
-})
-.get("/give-class", (req, res) => {
-    const data = req.query
 
-    const isNotEmpty = Object.keys(data).length > 0
-    if (isNotEmpty){
-
-        data.subject = getSubject(data.subject)
-
-        proffys.push(data)
-        return res.redirect("/study")
+    if (!filters.subject || !filters.weekday || !filters.time){
+        return res.render("study.html", {filters, subjects, weekdays})
     }
 
+    const timeToMinutes = convertHoursToMinutes(filters.time)
+
+    const query = `
+        SELECT classes.*, proffys.*
+        FROM proffys
+        JOIN classes ON (classes.proffys_id = proffys_id)
+        WHERE EXISTS(
+            SELECT class_scedule.*
+            FROM class_schedule
+            WHERE class_schedule.class_id = classes.id
+            AND class_schedule.weekday = ${filters.weekday}
+            AND class_schedule.time_from <= ${timeToMinuPtes}
+            AND class_schedule.tome_to > ${timeToMinutes}
+        )
+        AND classes.subject = '${filters.subject}'
+    `
+
+    try {
+        const db = await Database
+        const proffys = await db.all(query)
+
+        proffys.map((proffy) => {
+            proffy.subject = getSubject(proffy.subjects)
+        })
+
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+
+})
+.get("/give-class", (req, res) => {
     return res.render("give-class.html", {subjects, weekdays})
 })
+.post("/save-class", async (req, res) => {
+    
+    const createProffy = require('./database/createProffy')
+    
+    const proffyValue = {
+        name: req.body.name,
+        avatar: req.body.avatar,
+        whatsapp: req.body.whatsapp,
+        bio: req.body.bio
+    }
+
+    const classValue = {
+        subject: req.body.subject,
+        cost: req.body.cost
+    }
+
+    const classScheduleValue = req.body.weekdays.map((weekdays, index) => {
+        return {
+            weekdays,
+            time_from: convertHoursToMinutes(req.body.time_from[index]),
+            time_to: convertHoursToMinutes(req.body.time_to[index])
+        }
+    })
+
+    try {
+        const db = await Database
+        await createProffy(db, {proffyValue, classValue, classScheduleValue})
+        
+        let queryString = "?subject=" + req.body.subject
+        queryString += "&weekday=" + req.body.weekday[0]
+        queryString += "&time=" + req.body.time_from[0]
+
+        return res.redirect("/study")
+    } catch (error) {
+        
+    }  
+    
+    })
 .listen(5500)
